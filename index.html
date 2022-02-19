@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>VS Contract Info</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.0/web3.min.js"></script>
+<script src="script.js"></script>
+<p> Address - <span id="wallet-address"></span></p>
+<p> Wallet Balance - <span id="wallet-balance"></span></p>
+<!-- <p> Total Balance in StableOne Contract - <span id="stableBalance"></span></p>
+<p> Total Balance in MaricStaker Contract - <span id="maticstakerBalance"></span></p>
+<p> Total Deposit in StableOne.io - <span id="stableDeposit"></span></p>
+<p> Total Deposit in MaticStaker.io - <span id="maticstakerDeposit"></span></p>
+<p> Earned in StableOne.io - <span id="stableDividend"></span></p>
+<p> Earned in MaticStaker.io - <span id="maticstakerDividend"></span></p> -->
+
+<!-- table using bootstrap style-->
+
+<div class="table-responsive">
+  <table class="table table-light table-bordered">
+   <thead class="table-primary">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Site</th>
+      <th scope="col">Contract Balance</th>
+      <th scope="col">Deposited</th>
+      <th scope="col">Earned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>StableOne</td>
+      <td id="stableBalance"></td>
+      <td id="stableDeposit"></td>
+      <td id="stableDividend"></td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>MaticStaker</td>
+      <td id="maticstakerBalance"></td>
+      <td id="maticstakerDeposit"></td>
+      <td id="maticstakerDividend"></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- <button id="connect">Connect</button> -->
+<!-- <button id="balance-button">Get Balance</button> -->
+<button id="withdraw-stableone-button">Withdraw from StableOne</button>
+<button id="withdraw-maticstaker-button">Withdraw from MaticStaker</button>
+</body>
+</html>
