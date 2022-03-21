@@ -77,6 +77,9 @@ const getBalanceAllContracts = async () => {
 		let balance = await contractInstance.getBalance();
 		console.log(balance);
 		document.getElementById(contract + "Balance").textContent = (balance / 1000000000000000000).toFixed(4) + " MATIC";
+		if((balance/1000000000000000000)<20000){
+			document.getElementById(contract + "Balance").style.color = "red";
+		}
 	}
 }
 
