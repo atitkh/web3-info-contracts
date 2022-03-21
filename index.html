@@ -44,7 +44,7 @@
           })();
           $("#contract-table").empty();
           //display the data in table
-          $("#contract-table").append("<tr><th scope='col'>#</th><th>Site</th><th>Contract Balance</th><th>Deposited</th><th>Earned</th><th></th>");
+          $("#contract-table").append("<tr><th scope='col'>#</th><th>Site</th><th>Contract Balance</th><th>Deposited</th><th>Earned</th><th></th><th></th>");
           for (var i = 0; i < Object.keys(json).length; i++) {
             $("#contract-table").append("<tr>" +
               "<td>" + i + "</td>" +
@@ -53,14 +53,11 @@
               "<td id =" + Object.keys(json)[i] + "Deposit>" + "</td>" +
               "<td id =" + Object.keys(json)[i] + "Dividend>" + "</td>" +
               "<td><button id =" + Object.keys(json)[i] + "Button>" + "Withdraw" + "</button></td>" +
+              "<td><button id =" + Object.keys(json)[i] + "ReinvestButton>" + "Reinvest" + "</button></td>" +
               "</tr>");
           }
 
         </script>
-        <!-- table using bootstrap style-->
-
-        <!-- <button id="connect">Connect</button> -->
-        <!-- <button id="balance-button">Get Balance</button> -->
 </body>
 
 </html>

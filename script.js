@@ -40,6 +40,10 @@ function getVariables() {
 		document.getElementById(contract + "Button").onclick = () => {
 			withdrawEarned(contract);
 		}
+		//Reinvest from each contract
+		document.getElementById(contract + "ReinvestButton").onclick = () => {
+			reinvestEarned(contract);
+		}
 	}
 
 	//get contract balances, total deposit and earned dividend by default 
@@ -76,29 +80,7 @@ const getBalanceAllContracts = async () => {
 	}
 }
 
-//func to withdraw and send aleret on click
-const withdrawEarned = async (contract) => {
-	let contractInstance = eval(contract + "Contract");
-	console.log("Withdrawing from " + contract);
-		if (contractInstance){
-			var withdraw = await contractInstance.withdrawEarned(account);
-			console.log(withdraw);
-			alert("Withdraw request sent.");
-	}
-}
-
-const getDividendsAllContracts = async () => {
-	for (let i = 0; i < ContractNames.length; i++) {
-		let contract = ContractNames[i];
-		let contractInstance = eval(contract + "Contract");
-		var dividend = await contractInstance.allDividend(account);
-		if(dividend[0]){
-			console.log(dividend[0]);
-			document.getElementById(contract + "Dividend").textContent = (dividend[0] / 1000000000000000000).toFixed(4) + " MATIC";
-		}
-	}
-}
-
+//func to get deposits of all contracts and show on page
 const getDepositsAllContracts = async () => {
 	for (let i = 0; i < ContractNames.length; i++) {
 		let contract = ContractNames[i];
@@ -111,28 +93,38 @@ const getDepositsAllContracts = async () => {
 	}
 }
 
-//funcs to get contract total deposits and show on page
-const getTotalDepositStableone = async () => {
-	if (stableoneContract) {
-		var totalDeposit = await stableoneContract.getInvestorsData(account);
-		console.log(totalDeposit[2]);
-		document.getElementById("stableDeposit").textContent = (totalDeposit[2] / 1000000000000000000).toFixed(4) + " MATIC";
+//func to get total earned of all contracts and show on page
+const getDividendsAllContracts = async () => {
+	for (let i = 0; i < ContractNames.length; i++) {
+		let contract = ContractNames[i];
+		let contractInstance = eval(contract + "Contract");
+		var dividend = await contractInstance.allDividend(account);
+		if(dividend[0]){
+			console.log(dividend[0]);
+			document.getElementById(contract + "Dividend").textContent = (dividend[0] / 1000000000000000000).toFixed(4) + " MATIC";
+		}
 	}
 }
 
-const getTotalDepositStableoneV2 = async () => {
-	if (stableoneContractV2) {
-		var totalDepositV2 = await stableoneContractV2.getInvestorsData(account);
-		console.log(totalDepositV2[2]);
-		document.getElementById("stableDepositV2").textContent = (totalDepositV2[2] / 1000000000000000000).toFixed(4) + " MATIC";
+//func to withdraw and send aleret on click
+const withdrawEarned = async (contract) => {
+	let contractInstance = eval(contract + "Contract");
+	console.log("Withdrawing from " + contract);
+		if (contractInstance){
+			var withdraw = await contractInstance.withdrawEarned(account);
+			console.log(withdraw);
+			alert("Withdraw request sent.");
 	}
 }
 
-const getTotalDepositMaticstaker = async () => {
-	if (maticstakerContract) {
-		var totalDeposit = await maticstakerContract.getTotalDepositMaticstaker(account);
-		console.log(totalDeposit);
-		document.getElementById("maticstakerDeposit").textContent = (totalDeposit / 1000000000000000000).toFixed(4) + " MATIC";
+//func to reinvest earned dividend by default
+const reinvestEarned = async (contract) => {
+	let contractInstance = eval(contract + "Contract");
+	console.log("Reinvesting from " + contract);
+		if (contractInstance){
+			var reinvest = await contractInstance.reinvestEarned(account);
+			console.log(reinvest);
+			alert("Reinvest request sent.");
 	}
 }
 
