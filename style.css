@@ -1,35 +1,32 @@
 table {
-        margin: 0 auto;
-        font-size: large;
-        border: 1px solid black;
-      }
+      margin: 0 auto;
+      font-size: large;
+      border: 1px solid black;
+    }
   
-      h1 {
-        text-align: center;
-        color: #006660;
-        font-size: xx-large;
-        font-family: 'Gill Sans',
-          'Gill Sans MT', ' Calibri',
-          'Trebuchet MS', 'sans-serif';
-      }
+h1 {
+    text-align: center;
+    color: #006660;
+    font-size: xx-large;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    }
 
-	h2 {
-        text-align: center;
-        color: #006660;
-        font-size: x-large;
-        font-family: 'Gill Sans',
-          'Gill Sans MT', ' Calibri',
-          'Trebuchet MS', 'sans-serif';
-      	}
+h2 {
+    text-align: center;
+    color: #006660;
+    font-size: x-large;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    }
 
-	h3 {
-	        color: #006660;
-	        font-size: large;
-	        font-family: 'Gill Sans',
-	          'Gill Sans MT', ' Calibri',
-	          'Trebuchet MS', 'sans-serif';
-	    }
-	  
+h3 {
+        color: #006660;
+        font-size: large;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-style: normal;
+    }
+  
   
       /* th {
         background-color: rgb(67, 195, 212);
@@ -39,7 +36,8 @@ table {
       th,
       td {
         font-weight: bold;
-        border: 1px solid black;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        border: 1px solid rgb(0, 0, 0);
         padding: 10px;
         text-align: center;
       }

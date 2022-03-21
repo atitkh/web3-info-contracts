@@ -13,13 +13,13 @@ class ContractDetails {
 
 	//withdraw earned from contract method
 	async withdrawEarned(address) {
-		const withdraw = await this.contract.methods.withdraw().send({from: account});
+		const withdraw = await this.contract.methods.withdraw().send({ from: account });
 		return withdraw;
 	}
-	
+
 	//Reinvest earned from contract method
 	async reinvestEarned(address) {
-		const reinvest = await this.contract.methods.reinvest().send({from: account});
+		const reinvest = await this.contract.methods.reinvest().send({ from: account });
 		return reinvest;
 	}
 
@@ -33,7 +33,7 @@ class ContractDetails {
 		} catch (error) {
 			console.log(error);
 		}
-		try{
+		try {
 			withdraw.push(await this.contract.methods.getUserAvailable(address).call());
 			return withdraw;
 		} catch (error) {
@@ -42,7 +42,7 @@ class ContractDetails {
 	}
 
 	//get geposits from contract method
-	async allDeposits(address){
+	async allDeposits(address) {
 		console.log("getting deposits");
 		var deposits = [];
 		try {
@@ -52,14 +52,14 @@ class ContractDetails {
 		} catch (error) {
 			console.log(error);
 		}
-		try{
+		try {
 			deposits.push(await this.contract.methods.getUserTotalDeposits(address).call());
 			return deposits[0];
 		} catch (error) {
 			console.log(error);
 		}
 	}
-	
+
 	//get contract information (Stableone contract method)
 	async getContractInformation() {
 		const contractInformation = await this.contract.methods.getContractInformation().call();
