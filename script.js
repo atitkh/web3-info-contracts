@@ -53,6 +53,8 @@ function getVariables() {
 	getDividendsAllContracts();
 	console.log("Getting total deposit...");
 	getDepositsAllContracts();
+	console.log("Getting total withdrawn...");
+	getWithdrawnAllContracts();
 })();
 
 // initialize to connect wallet using metamask
@@ -97,6 +99,8 @@ const getDepositsAllContracts = async () => {
 		}
 	}
 	document.getElementById("totalDeposit").textContent =  (totalDeposit / 1000000000000000000).toFixed(2);
+	document.getElementById("totalDeposit").style.color = "red";
+	document.getElementById("totalDeposit").style.fontWeight = "normal";
 }
 
 //func to get total earned of all contracts and show on page
@@ -106,12 +110,38 @@ const getDividendsAllContracts = async () => {
 		let contract = ContractNames[i];
 		let contractInstance = eval(contract + "Contract");
 		var dividend = await contractInstance.allDividend(account);
-		if (dividend[0]) {
-			document.getElementById(contract + "Dividend").textContent = (dividend[0] / 1000000000000000000).toFixed(2);
-			totalDividend += Number(dividend[0]);
+		if (dividend) {
+			document.getElementById(contract + "Dividend").textContent = (dividend / 1000000000000000000).toFixed(2);
+			if(dividend > 0){
+				document.getElementById(contract + "Dividend").style.color = "green";
+			}
+			totalDividend += Number(dividend);
 		}
 	}
 	document.getElementById("totalDividend").textContent =  (totalDividend / 1000000000000000000).toFixed(2);
+	document.getElementById("totalDividend").style.color = "green";
+	document.getElementById("totalDividend").style.fontWeight = "normal";
+}
+
+//func to get total withdrawn of all contracts and show on page
+const getWithdrawnAllContracts = async () => {
+	var totalWithdrawn = 0;
+	for (let i = 0; i < ContractNames.length; i++) {
+		let contract = ContractNames[i];
+		let contractInstance = eval(contract + "Contract");
+		var withdrawn = await contractInstance.allWithdrawn(account);
+		if (withdrawn) {
+			document.getElementById(contract + "Withdrawn").textContent = (withdrawn / 1000000000000000000).toFixed(2);
+			document.getElementById(contract + "Withdrawn").style.color = "green";
+			totalWithdrawn += Number(withdrawn);
+		}else{
+			document.getElementById(contract + "Withdrawn").textContent = "N/A";
+			document.getElementById(contract + "Withdrawn").style.color = "red";
+		}
+	}
+	document.getElementById("totalWithdrawn").textContent =  (totalWithdrawn / 1000000000000000000).toFixed(2);
+	document.getElementById("totalWithdrawn").style.color = "green";
+	document.getElementById("totalWithdrawn").style.fontWeight = "normal";
 }
 
 //func to withdraw and send aleret on click
