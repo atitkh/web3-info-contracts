@@ -38,7 +38,7 @@
           })();
           $("#contract-table").empty();
           //display the data in table
-          $("#contract-table").append("<tr><th scope='col'>#</th><th>Site</th><th>Contract Balance (MATIC)</th><th>Invested (MATIC)</th><th>Withdrawable (MATIC)</th><th>Total Withdrawn (MATIC)</th><th></th><th></th>");
+          $("#contract-table").append("<tr><th scope='col'>#</th><th>Site</th><th>Contract Balance (MATIC)</th><th>Invested (MATIC)</th><th>Withdrawable (MATIC)</th><th>Total Withdrawn (MATIC)</th><th>Next Withdraw (Except Unlocked Plan)</th><th></th><th></th>");
           for (var i = 0; i < Object.keys(json).length; i++) {
             $("#contract-table").append("<tr>" +
               "<td>" + i + "</td>" +
@@ -47,6 +47,7 @@
               "<td id =" + Object.keys(json)[i] + "Deposit>" + "</td>" +
               "<td id =" + Object.keys(json)[i] + "Dividend>" + "</td>" +
               "<td id =" + Object.keys(json)[i] + "Withdrawn>" + "</td>" +
+              "<td id =" + Object.keys(json)[i] + "NextWithdrawDate>" + "</td>" +
               "<td><button id =" + Object.keys(json)[i] + "Button>" + "Withdraw" + "</button></td>" +
               "<td><button id =" + Object.keys(json)[i] + "ReinvestButton>" + "Reinvest" + "</button></td>" +
               "</tr>");

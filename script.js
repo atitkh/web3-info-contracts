@@ -55,6 +55,8 @@ function getVariables() {
 	getDepositsAllContracts();
 	console.log("Getting total withdrawn...");
 	getWithdrawnAllContracts();
+	console.log("Getting next withdraw date...");
+	getNextWithdrawDate();
 })();
 
 // initialize to connect wallet using metamask
@@ -143,6 +145,22 @@ const getWithdrawnAllContracts = async () => {
 	document.getElementById("totalWithdrawn").style.color = "green";
 	document.getElementById("totalWithdrawn").style.fontWeight = "normal";
 }
+
+//func to get next withdraw date from each contract and show on page
+const getNextWithdrawDate = async () => {
+	for (let i = 0; i < ContractNames.length; i++) {
+		let contract = ContractNames[i];
+		let contractInstance = eval(contract + "Contract");
+		var nextWithdrawDate = await contractInstance.getNextWithdrawDate(account);
+		if (nextWithdrawDate) {
+			document.getElementById(contract + "NextWithdrawDate").textContent = nextWithdrawDate;
+		}
+		else{
+			document.getElementById(contract + "NextWithdrawDate").textContent = "N/A";
+		}
+	}
+}
+
 
 //func to withdraw and send aleret on click
 const withdrawEarned = async (contract) => {

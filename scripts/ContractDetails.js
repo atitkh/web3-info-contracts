@@ -48,7 +48,7 @@ class ContractDetails {
 		try {
 			//get investors data from contract method : [address, referralAddress, totalDeposit, totalWithdraw, totalreInvest]
 			deposits = (await this.contract.methods.investors(address).call());
-			return deposits[2];
+			return deposits['totalDeposit'];
 		} catch (error) {
 			console.log(error);
 		}
@@ -67,7 +67,7 @@ class ContractDetails {
 		try {
 			//get investors data from contract method : [address, referralAddress, totalDeposit, totalWithdraw, totalreInvest]
 			withdrawn = (await this.contract.methods.investors(address).call());
-			return withdrawn[3];
+			return withdrawn['totalWithdraw'];
 		} catch (error) {
 			console.log(error);
 		}
@@ -78,6 +78,55 @@ class ContractDetails {
 			console.log(error);
 		}
 	}
+
+	//get next withdrawal date from contract method
+	async getNextWithdrawDate(address) {
+		console.log("getting next withdrawal date");
+		var nextWithdrawDate;
+		var dateArray = [];
+		try {
+			nextWithdrawDate = (await this.contract.methods.investors(address).call());
+			// converting timestamp to date and time\
+			if(nextWithdrawDate['lastWithdrawDate'] != 0) {
+				var date = new Date(nextWithdrawDate['lastWithdrawDate'] * 1000 + 8.64e+7);
+				var formattedDate = date.toLocaleString();
+				if (date > Date.now()) {
+					return formattedDate;
+				} else {
+					return "Withdrawable";
+				}
+			} else {
+				return "Not Invested";
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		try{
+			var totalNumDep = (await this.contract.methods.getUserAmountOfDeposits(address).call());
+			if (totalNumDep > 0) {
+				for(var i = 0; i < totalNumDep; i++){
+					dateArray.push(await this.contract.methods.getUserDepositInfo(address, i).call());		
+					dateArray[i] = dateArray[i]['finish'];	
+				}
+				dateArray.sort();
+				for(var i = 0; i < dateArray.length; i++){
+					var date = new Date(dateArray[i] * 1000);
+					if(date < Date.now()){
+						dateArray[i] = "Withdrawable";
+					}
+					else{
+						var formattedDate = date.toLocaleString();
+						dateArray[i] = formattedDate;
+						return dateArray[i];
+					}
+				}
+			} else {
+				return "No deposits";
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}			
 
 	//get contract information (Stableone contract method)
 	async getContractInformation() {
