@@ -1,8 +1,7 @@
 var account = null;
 var contract = null;
 
-//0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0 matic token address
-//funcation get variables from local file 
+//funcation to get contract info variables from local file 
 function getVariables() {
 	var request = new XMLHttpRequest();
 	request.open('GET', 'ContractList.json', false);
@@ -20,11 +19,11 @@ function getVariables() {
 
 //anonymous async function to initialize await values
 (async () => {
-	//call connectWallet function to connect wallet and get account address
+	//connectWallet function to connect wallet and get account address
 	getVariables();
 	account = await connectWallet();
 
-	//get wallet information
+	//wallet information
 	accbalance = await web3.eth.getBalance(account);
 	document.getElementById("wallet-address").textContent = account;
 	document.getElementById("wallet-balance").textContent = (accbalance / 1000000000000000000).toFixed(4) + " MATIC";
@@ -46,7 +45,7 @@ function getVariables() {
 		}
 	}
 
-	//get contract balances, total deposit and earned dividend by default 
+	//get contract balances, total deposit, earned dividend, withdrawn info and next withdraw date by default 
 	console.log("Getting balances...");
 	getBalanceAllContracts();
 	console.log("Getting total earned...");
@@ -82,7 +81,13 @@ const getBalanceAllContracts = async () => {
 		console.log(balance);
 		document.getElementById(contract + "Balance").textContent = numberWithCommas((balance / 1000000000000000000).toFixed(0));
 		if ((balance / 1000000000000000000) < 20000) {
-			document.getElementById(contract + "Balance").style.color = "red";
+			if((balance / 1000000000000000000) == 0){
+				document.getElementById(contract + "Balance").textContent = document.getElementById(contract + "Balance").textContent + " (R.I.P.)";
+			} else {
+				document.getElementById(contract + "Balance").textContent = document.getElementById(contract + "Balance").textContent + " (Low)";
+			}
+			document.getElementById(contract + "Balance").bgColor = "red";
+			document.getElementById(contract + "Balance").style.color = "white";
 			document.getElementById(contract + "Balance").style.fontWeight = "normal";
 		}
 	}
@@ -154,6 +159,11 @@ const getNextWithdrawDate = async () => {
 		var nextWithdrawDate = await contractInstance.getNextWithdrawDate(account);
 		if (nextWithdrawDate) {
 			document.getElementById(contract + "NextWithdrawDate").textContent = nextWithdrawDate;
+			if(nextWithdrawDate == "Withdrawable"){
+				document.getElementById(contract + "NextWithdrawDate").style.color = "green";
+			} else if (nextWithdrawDate == "N/A" || nextWithdrawDate == "Not Invested"){
+				document.getElementById(contract + "NextWithdrawDate").style.color = "red";
+			}
 		}
 		else{
 			document.getElementById(contract + "NextWithdrawDate").textContent = "N/A";
@@ -191,12 +201,6 @@ const getMaticPrice = async () => {
 	console.log(data);
 	document.getElementById("maticPrice").textContent = data.data.price.toFixed(4) + " USD";
 }
-
-const sendSMSall = async () => {
-	const response = await fetch('https://maker.ifttt.com/trigger/matic_down/with/key/bO6dgTdivMr7LBh4l5kPSr');
-	console.log("Alerted Users!");
-}
-
 
 //function to add commas 
 function numberWithCommas(x) {

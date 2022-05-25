@@ -39,6 +39,12 @@ class ContractDetails {
 		} catch (error) {
 			console.log(error);
 		}
+		try {
+			dividend = (await this.contract.methods.getAllClaimableReward(address).call());
+			return dividend;
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	//get geposits from contract method
@@ -55,6 +61,18 @@ class ContractDetails {
 		try {
 			deposits = (await this.contract.methods.getUserTotalDeposits(address).call());
 			return deposits;
+		} catch (error) {
+			console.log(error);
+		}
+		try {
+			//stablefund contract method returns array
+			deposits = (await this.contract.methods.getOwnedDeposits(address).call());
+			// sum of array of deposits
+			var sum = 0;
+			for (var i = 0; i < deposits.length; i++) {
+				sum += deposits[i];
+			}
+			return sum;
 		} catch (error) {
 			console.log(error);
 		}
@@ -121,7 +139,7 @@ class ContractDetails {
 					}
 				}
 			} else {
-				return "No deposits";
+				return "Not Invested";
 			}
 		} catch (error) {
 			console.log(error);

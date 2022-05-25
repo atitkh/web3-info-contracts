@@ -21,43 +21,44 @@
       <p> Wallet Balance - <span id="wallet-balance"></span></p>
       </h2>
       <table id="contract-table">
-        <script>
-          var json = (function () {
-            var json = null;
-            $.ajax({
-              'async': false,
-              'global': false,
-              'url': "/ContractList.json",
-              'dataType': "json",
-              'success': function (data) {
-                json = data;
-                console.log(Object.keys(json));
-              }
-            });
-            return json;
-          })();
-          $("#contract-table").empty();
-          //display the data in table
-          $("#contract-table").append("<tr><th scope='col'>#</th><th>Site</th><th>Contract Balance (MATIC)</th><th>Invested (MATIC)</th><th>Withdrawable (MATIC)</th><th>Total Withdrawn (MATIC)</th><th>Next Withdraw (Except Unlocked Plan)</th><th></th><th></th>");
-          for (var i = 0; i < Object.keys(json).length; i++) {
-            $("#contract-table").append("<tr>" +
-              "<td>" + i + "</td>" +
-              "<td>" + Object.keys(json)[i] + "</td>" +
-              "<td id =" + Object.keys(json)[i] + "Balance>" + "</td>" +
-              "<td id =" + Object.keys(json)[i] + "Deposit>" + "</td>" +
-              "<td id =" + Object.keys(json)[i] + "Dividend>" + "</td>" +
-              "<td id =" + Object.keys(json)[i] + "Withdrawn>" + "</td>" +
-              "<td id =" + Object.keys(json)[i] + "NextWithdrawDate>" + "</td>" +
-              "<td><button id =" + Object.keys(json)[i] + "Button>" + "Withdraw" + "</button></td>" +
-              "<td><button id =" + Object.keys(json)[i] + "ReinvestButton>" + "Reinvest" + "</button></td>" +
-              "</tr>");
-          }
-          $("#contract-table").append("<td></td>" +
-            "<td></td> <td style='font-weight: normal'> Total</td>" +
-            "<td id = totalDeposit>" + "</td>" +
-            "<td id = totalDividend>" + "</td>"+
-            "<td id = totalWithdrawn>" + "</td>");
-        </script>
+      </table>
+      <script>
+        var json = (function () {
+          var json = null;
+          $.ajax({
+            'async': false,
+            'global': false,
+            'url': "/ContractList.json",
+            'dataType': "json",
+            'success': function (data) {
+              json = data;
+              console.log(Object.keys(json));
+            }
+          });
+          return json;
+        })();
+        $("#contract-table").empty();
+        //display the data in table
+        $("#contract-table").append("<tr><th>#</th><th>Site</th><th>Contract Balance (MATIC)</th><th>Invested (MATIC)</th><th>Withdrawable (MATIC)</th><th>Total Withdrawn (MATIC)</th><th>Next Withdraw (Except Unlocked Plan)</th><th></th><th></th>");
+        for (var i = 0; i < Object.keys(json).length; i++) {
+          $("#contract-table").append("<tr>" +
+            "<td>" + i + "</td>" +
+            "<td>" + Object.keys(json)[i] + "</td>" +
+            "<td id =" + Object.keys(json)[i] + "Balance>" + "</td>" +
+            "<td id =" + Object.keys(json)[i] + "Deposit>" + "</td>" +
+            "<td id =" + Object.keys(json)[i] + "Dividend>" + "</td>" +
+            "<td id =" + Object.keys(json)[i] + "Withdrawn>" + "</td>" +
+            "<td id =" + Object.keys(json)[i] + "NextWithdrawDate>" + "</td>" +
+            "<td ><button id =" + Object.keys(json)[i] + "Button>" + "Withdraw" + "</button></td>" +
+            "<td ><button id =" + Object.keys(json)[i] + "ReinvestButton>" + "Reinvest" + "</button></td>" +
+            "</tr>");
+        }
+        $("#contract-table").append("<td></td>" +
+          "<td></td> <td style='font-weight: normal'> Total</td>" +
+          "<td id = totalDeposit>" + "</td>" +
+          "<td id = totalDividend>" + "</td>" +
+          "<td id = totalWithdrawn>" + "</td>");
+      </script>
 </body>
 
 </html>
